@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+
+# container leftovers (HOME=/app + bind mount)
+.npm
+.ash_history
+
+# runtime user data (token, city, lang)
+weather-data.json

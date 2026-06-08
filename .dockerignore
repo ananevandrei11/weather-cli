@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+.npm
+.ash_history
+weather-data.json
