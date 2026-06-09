@@ -1,11 +1,10 @@
-import https from "https";
-import { printError } from "./log.service.js";
-import { getKeyValue, STORAGE_DICTONARY } from "./storage.service.js";
-import { t } from "../locales/i18next.init.js";
+import { getKeyValue, STORAGE_DICTONARY } from "./storage.service.ts";
+import { t } from "../locales/i18next.init.ts";
+import type { Weather, WeatherApiResponse } from "../weather.types.ts";
 
 const API_URL = "http://api.weatherapi.com/v1/current.json";
 
-const getWeather = async (city) => {
+const getWeather = async (city: string): Promise<Weather> => {
   const token =
     process.env?.TOKEN ?? (await getKeyValue(STORAGE_DICTONARY.token));
   if (!token) {
@@ -21,8 +20,8 @@ const getWeather = async (city) => {
   url.searchParams.append("q", city);
   url.searchParams.append("lang", lang);
   const res = await fetch(url.href);
-  const data = await res.json();
-  if (data.error) {
+  const data = (await res.json()) as WeatherApiResponse;
+  if ("error" in data) {
     throw new Error(data.error.message);
   }
   return data;

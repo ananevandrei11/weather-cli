@@ -7,3 +7,4 @@ node_modules
 
 # runtime user data (token, city, lang)
 weather-data.json
+dist

@@ -1,6 +1,6 @@
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
-import { getKeyValue, STORAGE_DICTONARY } from "../services/storage.service.js";
+import { getKeyValue, STORAGE_DICTONARY } from "../services/storage.service.ts";
 
 const lng =
   process.env?.LANG ??

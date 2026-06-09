@@ -1,14 +1,15 @@
 import chalk from "chalk";
-import { t } from "../locales/i18next.init.js";
+import { t } from "../locales/i18next.init.ts";
+import type { Weather } from "../weather.types.ts";
 
 const colors = {
   help: "cyan",
   error: "red",
   succes: "green",
   weather: "yellowBright",
-};
+} as const;
 
-const printLines = (lines) => {
+const printLines = (lines: string[]) => {
   console.log(lines.join("\n"));
 };
 
@@ -25,17 +26,17 @@ const printHelp = () => {
   printLines(lines);
 };
 
-const printError = (error) => {
+const printError = (error: string) => {
   const lines = [chalk.bold[colors.error].bgBlack(t("error")), error];
   printLines(lines);
 };
 
-const printSuccess = (message) => {
+const printSuccess = (message: string) => {
   const lines = [chalk.bold[colors.succes].bgBlack(t("success")), message];
   printLines(lines);
 };
 
-const weatherEmoji = {
+const weatherEmoji: Record<number, string> = {
   1000: "☀️", // Sunny / Clear (see is_day below)
   1003: "🌤️", // Partly cloudy
   1006: "☁️", // Cloudy
@@ -86,12 +87,12 @@ const weatherEmoji = {
   1282: "⛈️", // Moderate or heavy snow with thunder
 };
 
-const getWeatherEmoji = (code, isDay) => {
+const getWeatherEmoji = (code: number, isDay: number) => {
   if (code === 1000) return isDay ? "☀️" : "🌙";
   return weatherEmoji[code] ?? "🌡️";
 };
 
-const formatWeather = (weather) => {
+const formatWeather = (weather: Weather) => {
   const { location, current } = weather;
   return [
     chalk.bold[colors.weather].bgBlack(` ${t("weather")} `),
@@ -107,7 +108,7 @@ const formatWeather = (weather) => {
   ];
 };
 
-const printWeather = (weather) => {
+const printWeather = (weather: Weather | Weather[]) => {
   const list = Array.isArray(weather) ? weather : [weather];
   // blank line between city blocks
   const lines = list.flatMap((w, i) => (i ? ["", ...formatWeather(w)] : formatWeather(w)));

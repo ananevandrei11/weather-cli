@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
@@ -7,4 +7,4 @@ RUN npm install --omit=dev
 
 COPY . .
 
-ENTRYPOINT ["node", "weather.js"]
+ENTRYPOINT ["node", "weather.ts"]
